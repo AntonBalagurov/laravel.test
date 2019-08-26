@@ -49,8 +49,9 @@ class BookController extends Controller
         $book->count_pages = $request->count_pages;
         $book->description = $request->description;
 
-        $book->image = $request->image->store('book','public');
-
+        if($request->hasFile('image')) {
+            $book->image = $request->image->store('book', 'public');
+        }
         $book->save();
 
         return redirect(route('book-index'));
